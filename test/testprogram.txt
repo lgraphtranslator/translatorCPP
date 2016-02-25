@@ -6,8 +6,8 @@ begin
 d:=(10+10)*12 - 4/2;
 write(d);
 ch:='f';
-write(ch);
 b:=false;
+write(ch);
 write(b)
 end
 @
