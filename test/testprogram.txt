@@ -3,11 +3,11 @@ var d:int;
 var b:bool;
 var ch:char;
 begin
-d:=(10+10)*12 - 4/2;
-write(d);
 ch:='f';
-b:=false;
 write(ch);
-write(b)
+b:=false;
+write(b);
+d:=(4+10)*2 - 12/2;
+write(d)
 end
 @

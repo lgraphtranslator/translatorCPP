@@ -16,6 +16,7 @@ void Executer::execute(Poliz & prog,Table_ident* TID)
 	this->TID = TID;
 	Variable var;
 	char ch;
+	int val;
 	stack<Variable> args;
 	int i, j, index = 0, size = prog.get_free();
 	while (index < size)
@@ -23,8 +24,21 @@ void Executer::execute(Poliz & prog,Table_ident* TID)
 		ex_token = prog[index];
 		switch (ex_token.get_type())
 		{
-		case TOKEN_TRUE: case TOKEN_FALSE: case TOKEN_NUM: case POLIZ_ADDRESS: case POLIZ_LABEL:
+		case POLIZ_ADDRESS:
+		case POLIZ_LABEL:
 			args.push(ex_token.get_value());
+			break;
+		case TOKEN_NUM:
+			val = (int)ex_token.get_value();
+			var.putIntValue(val);
+			var.putType(INT);
+			args.push(var);
+			break;
+		case TOKEN_TRUE:case TOKEN_FALSE:
+			val = (int)ex_token.get_value();
+			var.putIntValue(val);
+			var.putType(BOOL);
+			args.push(var);
 			break;
 		case TOKEN_CHAR:
 			ch = (char)ex_token.get_value();
