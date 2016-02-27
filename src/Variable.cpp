@@ -20,6 +20,8 @@ void Variable::putType(type_state tstate) {
 }
 Variable::Variable(int value) {
 	this->value = value;
+	this->chValue = 'a';
+	this->type = INT;
 }
 Variable&  Variable::operator=(Variable var) {
 	value = var.value;
@@ -27,5 +29,12 @@ Variable&  Variable::operator=(Variable var) {
 	type = var.type;
 	return *this;
 }
+Variable::Variable(){
+	value = 0;
+	chValue = 'a';
+	type = INT;
+}
 
-Variable::Variable() {}
+Variable::~Variable(){
+}
+

@@ -16,6 +16,7 @@ public:
 	type_state getType();
 	void putType(type_state tstate);
 	Variable(int value);
+	~Variable();
 	Variable&  operator=(Variable var);
 	Variable();
 };
