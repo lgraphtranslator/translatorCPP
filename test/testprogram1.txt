@@ -1,0 +1,17 @@
+program 
+var d,c,v:int;
+var b:bool;
+var ch:char;
+begin	
+	if 4 > 5 then read(d)
+	else read(b);
+	write(b);
+	d:=100;
+	c:=200;
+	v:=300;
+	write(d);
+	d:=d+c+v;
+	write(d);
+	if 5 > 4 then write(5)
+		else write(4)
+end@

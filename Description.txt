@@ -3,3 +3,4 @@
 3. int,bool,char
 4. <,>,<=,>=, not
 5.write,read
+6.if then else

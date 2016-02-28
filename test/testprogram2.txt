@@ -6,14 +6,6 @@ begin
 	d:=10*(2+3)-(6-2)/2;
 	write(d);
 	d:=3;
-	write(d);
-	read(ch);
-	write(ch);
-	read(b);
-	b:=not b;
-	write(b);
-	b:=4>5;
-	write(b);
 	read(d);
 	d:=d+10;
 	write(d);
@@ -35,10 +27,5 @@ begin
 	write(d);
 	if 4 > 5 then read(d)
 	else read(b);
-	write(b);
-	if true then d:=4
-	else d:=2;
-	write(d);
-	c:=d*(2+c)-(6-2)/2;
-	write(c)
+	write(b)
 end@
