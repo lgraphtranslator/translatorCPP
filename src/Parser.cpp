@@ -1,6 +1,11 @@
 #include "../include/Parser.h"
 
 
+
+// Here is a hooks definition 
+//1 = '(b' , 2 = '(=' , 3 = '(3' , 4 = '(+', 5 = '(-' ,6= '((', 7 = '(x', 8='/'
+//9 = '(>=' 10 = '(<=' 11 = '(>' 12 = '(<' 13 = '(=' 14 = '(not' 15 ='(r' 16 = '(else'
+
 Parser::Parser(const char* program):scanner(program),poliz(100)
 {
 	TID = scanner.getTID();
@@ -59,6 +64,7 @@ void        Parser::gl()
 void Parser::PopulatePoliz()
 {
 	LGRAPH state = H;
+	int pl0, pl1;
 	gl();
 	while (token.get_type() != TOKEN_FIN)
 	{
@@ -171,6 +177,11 @@ void Parser::PopulatePoliz()
 				state = R1;
 				break;
 			}
+			if (token.get_type() == TOKEN_IF)
+			{
+				state = V1;
+				break;
+			}
 			else
 				throw "invalid begin end";
 			break;
@@ -192,8 +203,11 @@ void Parser::PopulatePoliz()
 		case R3:
 			if (token.get_type() == TOKEN_RPAREN)
 			{
-				state = SF;
+				/*state = SF;
+				poliz.put_lex(Token(TOKEN_READ));*/
+				state = V2;
 				poliz.put_lex(Token(TOKEN_READ));
+				hooks.push(15);
 				break;
 			}
 		case W1:
@@ -311,12 +325,12 @@ void Parser::PopulatePoliz()
 				hooks.push(5);
 				break;
 			}
-			if (token.get_type() == TOKEN_RPAREN)
+			if (token.get_type() == TOKEN_RPAREN )
 			{
 				state = B2;
 				if (CheckHeadHooks(6))
 					break;
-				else
+				else if (CheckHeadHooks(3))
 				{
 					state = V2;
 					continue;
@@ -357,7 +371,7 @@ void Parser::PopulatePoliz()
 				state = V2;
 				continue;
 			}
-			// 9 = '>=' 10 = '<=' 11 = '>' 12 = '<' 13 = '='
+			// 9 = '>=' 10 = '<=' 11 = '>' 12 = '<' 13 = '=' 14 = 'not'
 			if (CheckHeadHooks(9))
 			{
 				state = S2;
@@ -396,20 +410,58 @@ void Parser::PopulatePoliz()
 				state = W2;
 				break;
 			}
-			state = SF;
-			poliz.put_lex(Token(TOKEN_ASSIGN));
-			continue;
+			if (token.get_type() == TOKEN_THEN)
+			{
+				state = S;
+				pl0 = poliz.get_free();
+				poliz.blank();
+				poliz.put_lex(Token(POLIZ_FGO));
+				break;
+			}
+			if (CheckHeadHooks(2))
+			{
+				state = SF;
+				poliz.put_lex(Token(TOKEN_ASSIGN));
+				continue;
+			}
+			if (CheckHeadHooks(15)) //read
+			{
+				state = SF;
+				continue;
+			}
+			else
+				throw "POliz assign";
 		case W2:
 			state = SF;
 			poliz.put_lex(Token(TOKEN_WRITE));
 			continue;
 		case SF:
-			if (token.get_type() == TOKEN_SEMICOLON)
+			if (token.get_type() == TOKEN_SEMICOLON && CheckHeadHooks(16))
 			{
+				state = S;
+				poliz.put_lex(Token(POLIZ_LABEL, poliz.get_free()), pl1);
+				break;
+			}
+			else if (token.get_type() == TOKEN_SEMICOLON){
 				state = S;
 				break;
 			}
-			if (token.get_type() == TOKEN_END)
+			else if (CheckHeadHooks(16)){
+				state = S;
+				poliz.put_lex(Token(POLIZ_LABEL, poliz.get_free()), pl1);
+					break;
+				}
+			if (token.get_type() == TOKEN_ELSE)
+			{
+				state = S;
+				pl1 = poliz.get_free();
+				poliz.blank();
+				poliz.put_lex(Token(POLIZ_GO));
+				poliz.put_lex(Token(POLIZ_LABEL, poliz.get_free()), pl0);
+				hooks.push(16);
+				break;
+			}		
+			if (token.get_type() == TOKEN_END && CheckHeadHooks(1))
 			{
 				state = E;
 				break;
