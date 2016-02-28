@@ -2,7 +2,7 @@
 #include <iostream>
 int main()
 {
-	Interpretator inter("testprogram2.txt");
+	Interpretator inter("testprogram.txt");
 	inter.interpretation();
 	return 0;
 }

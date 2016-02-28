@@ -6,7 +6,7 @@
 //1 = '(b' , 2 = '(=' , 3 = '(3' , 4 = '(+', 5 = '(-' ,6= '((', 7 = '(x', 8='/'
 //9 = '(>=' 10 = '(<=' 11 = '(>' 12 = '(<' 13 = '(=' 14 = '(not' 15 ='(r' 16 = '(else'
 
-Parser::Parser(const char* program):scanner(program),poliz(100)
+Parser::Parser(const char* program):scanner(program),poliz(500)
 {
 	TID = scanner.getTID();
 }

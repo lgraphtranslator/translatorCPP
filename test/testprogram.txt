@@ -35,5 +35,10 @@ begin
 	write(d);
 	if 4 > 5 then read(d)
 	else read(b);
-	write(b)
+	write(b);
+	if true then d:=4
+	else d:=2;
+	write(d);
+	c:=d*(2+c)-(6-2)/2;
+	write(c)
 end@
