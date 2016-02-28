@@ -4,7 +4,5 @@ int main()
 {
 	Interpretator inter("testprogram.txt");
 	inter.interpretation();
-	int k;
-	std::cin>> k;
 	return 0;
 }

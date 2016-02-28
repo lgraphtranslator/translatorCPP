@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <cstring>
 
-Variable Executer::POP(stack<Variable>* stack)
+Variable& Executer::POP(stack<Variable>* stack)
 {
-	Variable current = stack->top();
+	Variable& current = stack->top();
 	stack->pop();
 	return current;
 }

@@ -1,5 +1,5 @@
 program 
-var d:int;
+var d,v,s:int;
 var b,c:bool;
 var ch:char;
 begin
@@ -15,6 +15,22 @@ begin
 	c:= 4 >= 5;
 	write(not c);
 	read(c);
-	write(c)
+	write(c);
+	ch:='m';
+	write(ch);
+	read(ch);
+	write(ch);
+	read(d);
+	write(d);
+	d:= 111 +22;
+	b:= d <200;
+	d:=200;
+	v:=100;
+	s:=100;
+	d:=d+s+v;
+	write(b);
+	write(d);
+	b:=40 <2;
+	write(b)
 end
 @

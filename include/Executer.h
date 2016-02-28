@@ -12,6 +12,6 @@ class Executer
 	Table_ident* TID;
 public:
 	void         execute(Poliz & prog,Table_ident* TID);
-	Variable POP(stack<Variable> * stack);
+	Variable& POP(stack<Variable> * stack);
 };
 #endif
