@@ -1,0 +1,30 @@
+program 
+var d,c,v:int;
+var b:bool;
+var ch:char;
+begin	
+if 5 > 4 then 
+begin
+	write(11);
+	write(11)
+end
+else
+begin
+	write(20);
+	write(20)
+end
+write(0);
+write(1);
+write(2);
+if 5 < 4 then 
+begin
+	write(11);
+	write(11)
+end
+else
+begin
+	write(20);
+	write(20)
+end
+end
+@

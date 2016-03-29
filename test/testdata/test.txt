@@ -1,0 +1,35 @@
+program 
+var d,c,v:int;
+var b:bool;
+var ch:char;
+begin	
+if true then 
+  begin
+	d:=11;
+	write(d);
+	write(d)
+  end
+else
+  begin
+	d:=10;
+	write(d);
+	write(d)
+  end
+
+d:= 666;
+write(d);
+write(d);
+
+if true 
+then
+begin 
+	read(d);
+	write(d)
+end
+else
+begin
+	write(1)
+end
+
+end
+@

@@ -1,0 +1,21 @@
+program 
+var d:int;
+var b:bool;
+var ch:char;
+begin
+d:=10*(2+3)-(6-2)/2;
+write(d);
+d:=3;
+write(d);
+read(ch);
+write(ch);
+read(b);
+b:=not b;
+write(b);
+b:=4>5;
+write(b);
+read(d);
+d:=d+10;
+write(d)
+end
+@

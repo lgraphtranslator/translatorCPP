@@ -1,0 +1,53 @@
+program 
+var d,c,v:int;
+var b:bool;
+var ch:char;
+begin
+	begin
+	d:=48;
+	write(d)
+	end
+	begin
+	d:=3;
+	write(d)
+	end
+	read(ch);
+	write(ch);
+	read(b);
+	b:=not b;
+	write(b);
+	b:=4>5;
+	write(b);
+	read(d);
+	d:=d+10;
+	write(d);
+	d:=10;
+	b:= not false;
+	if 5 > 4 then 
+		begin
+			write(5);
+			write(5)
+		end
+		else 
+			begin
+				write(4)
+			end
+	read(ch);
+	write(ch);
+	d:=44;
+	write(d);
+	read(d);
+	write(d);
+	d:=100;
+	c:=200;
+	v:=300;
+	write(d);
+	d:=d+c+v;
+	write(d);
+	if 4 > 5 then read(d)
+	else 
+	 begin	
+	   read(b)
+	 end
+	write(b)
+end@

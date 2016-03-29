@@ -1,0 +1,43 @@
+program 
+var d,c,v:int;
+var b:bool;
+var ch:char;
+begin
+read(d);
+read(c);
+if d < c 
+then 
+      begin
+	while d < c
+	do 
+	 begin
+	   d:=d+1;
+	   write(d) 
+	 end 
+	end
+else 
+      begin
+	while d > c
+	do
+	begin 
+	  d:=d-1;
+	  write(d)
+	end
+      end
+
+write(666);
+write(666);
+
+if true 
+then
+begin 
+	read(d);
+	write(d)
+end
+else
+begin
+	write(1)
+end
+
+end
+@

@@ -1,8 +1,8 @@
 #include "../include/Interpretator.h"
 #include <iostream>
-int main()
+int main(int count,char ** args)
 {
-	Interpretator inter("testprogram.txt");
+	Interpretator inter("testdata/recursive.txt");
 	inter.interpretation();
 	return 0;
 }

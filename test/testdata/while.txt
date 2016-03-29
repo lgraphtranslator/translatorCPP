@@ -1,0 +1,44 @@
+program 
+var d,c,v:int;
+var b:bool;
+var ch:char;
+begin
+if 5 > 4 then 
+	begin
+		write(5);
+		write(5)
+	end
+else 
+	begin
+		write(4);
+		write(4)
+	end
+read(ch);
+write(ch);
+
+d:=1;	
+
+while d < 4
+do
+   begin
+  	d:=d+1;
+ 	write(d) 
+   end
+
+d:=33;
+write(d);
+
+if 5 < 4 then 
+	begin
+		write(5);
+		write(5)
+	end
+else 
+	begin
+		c:=(30+12-2)*10/40;
+		write(c)
+	end
+read(ch);
+write(ch)
+end
+@

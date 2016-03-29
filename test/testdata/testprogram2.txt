@@ -1,0 +1,31 @@
+program 
+var d,c,v:int;
+var b:bool;
+var ch:char;
+begin
+	d:=10*(2+3)-(6-2)/2;
+	write(d);
+	d:=3;
+	read(d);
+	d:=d+10;
+	write(d);
+	d:=10;
+	b:= not false;
+	if 5 > 4 then write(5)
+		else write(4);
+	read(ch);
+	write(ch);
+	d:=44;
+	write(d);
+	read(d);
+	write(d);
+	d:=100;
+	c:=200;
+	v:=300;
+	write(d);
+	d:=d+c+v;
+	write(d);
+	if 4 > 5 then read(d)
+	else read(b);
+	write(b)
+end@
