@@ -85,6 +85,11 @@ Token Scanner::get_token()
 				gc();
 				CS = Z;
 			}
+			else if (c == '\"')
+			{
+				gc();
+				CS = STR;
+			}
 			else if (c == ':' || c == '<' || c == '>')
 			{
 				clear();
@@ -132,6 +137,24 @@ Token Scanner::get_token()
 			}
 			else throw c;
 			break;
+		case STR:
+			if (isalpha(c) || isdigit(c))
+			{
+				string str;
+				str.push_back(c);
+				int i = 1;
+				while(c!='\"')
+				{
+					i++;
+					gc();
+					if (c == '\"') break;
+					str.push_back(c);
+				} 
+				i++;
+				gc();
+				return Token(TOKEN_STRING,str);
+				break;
+			}
 		case NUMB:
 			if (isdigit(c))
 			{
@@ -194,11 +217,11 @@ Token Scanner::get_token()
 
 
 char *
-Scanner::TW[] = { "", "and", "begin", "bool","char","do","else", "end", "if", "false", "int", "not", "or", "program",
+Scanner::TW[] = { "", "and", "begin", "bool","char","string","do","else", "end", "if", "false", "int", "not", "or", "program",
 "read", "then", "true", "var", "while", "write", NULL };
 
 type_of_token
-Scanner::words[] = { TOKEN_NULL, TOKEN_AND, TOKEN_BEGIN, TOKEN_BOOL,TOKEN_CHAR, TOKEN_DO, TOKEN_ELSE, TOKEN_END, TOKEN_IF, TOKEN_FALSE, TOKEN_INT,
+Scanner::words[] = { TOKEN_NULL, TOKEN_AND, TOKEN_BEGIN, TOKEN_BOOL,TOKEN_CHAR,TOKEN_STRING, TOKEN_DO, TOKEN_ELSE, TOKEN_END, TOKEN_IF, TOKEN_FALSE, TOKEN_INT,
 TOKEN_NOT, TOKEN_OR, TOKEN_PROGRAM, TOKEN_READ, TOKEN_THEN, TOKEN_TRUE, TOKEN_VAR, TOKEN_WHILE, TOKEN_WRITE,TOKEN_NULL };
 
 char *

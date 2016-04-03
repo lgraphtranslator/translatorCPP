@@ -1,0 +1,71 @@
+program 
+var a,d,b,c,v:int;
+var ch:char;
+var p:bool;
+var str:string;
+begin
+
+write("start of the first block");
+write("input some values for a and b :");
+read(a);
+read(b);
+
+while a != b
+do 
+begin
+     if a < b then 
+	begin 
+	    a:=a+1;
+	    write(a) 
+	end
+     else
+	begin
+	    a:=a-1;
+	    write(a)
+	end
+end
+
+write("the end of the block");
+
+write("The block of some calculation");
+
+d:=10*(2+3)-(6-2)/2;
+write("the result of 10*(2+3)-(6-2)/2 is :");
+write(d);
+d:=10*2+3-6-2/2;
+write("the result of 10*2+3-6-2/2 is :");
+write(d);
+
+write("input values for d and c :");
+
+read(d);
+read(c);
+
+write("start of the second block");
+
+if d < c 
+then 
+      begin
+	while d < c
+	do 
+	 begin
+	   d:=d+1;
+	   write(d) 
+	 end 
+	end
+else 
+      begin
+	while d > c
+	do
+	begin 
+	  d:=d-1;
+	  write(d)
+	end
+      end
+
+write("write the finish string:");
+read(str);
+write(str)
+
+end
+@

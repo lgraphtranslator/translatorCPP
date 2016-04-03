@@ -17,6 +17,7 @@ private:
 	Table_ident* TID;
 	type_of_token c_type;
 	int c_val;
+	string str;
 public:
 	Poliz poliz;
 	Parser(const char*);

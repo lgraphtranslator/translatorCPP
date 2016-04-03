@@ -3,7 +3,7 @@
 
 // Here is a hooks definition 
 //1 = '(b' , 2 = '(=' , 3 = '(3' , 4 = '(+', 5 = '(-' ,6= '((', 7 = '(x', 8='/'
-//9 = '(>=' 10 = '(<=' 11 = '(>' 12 = '(<' 13 = '(=' 14 = '(not' 15 ='(r' 16 = '(else'
+//9 = '(>=' 10 = '(<=' 11 = '(>' 12 = '(<' 13 = '(=' 14 = '(not' 15 ='(r' 16 = '(else' 17 = 'do' 18 ='!='
 
 bool Parser::checkElse()
 {
@@ -86,11 +86,13 @@ void        Parser::gl()
 	token = scanner.get_token();
 	c_type = token.get_type();
 	c_val = token.get_value();
+	str = token.get_string();
 }
 
 
 void Parser::PopulatePoliz()
 {
+	bool IF = false;
 	stack<int> wh;
 	LGRAPH state = H;
 	int pl0, pl1, pl2, pl3;
@@ -156,6 +158,13 @@ void Parser::PopulatePoliz()
 				declare(TOKEN_BOOL);
 				break;
 			}
+			if (token.get_type() == TOKEN_STRING)
+			{
+				state = D4;
+				declare(TOKEN_STRING);
+				break;
+			}
+
 			else
 				throw "Invalid type";
 			break;
@@ -199,20 +208,27 @@ void Parser::PopulatePoliz()
 			}
 			if (token.get_type() == TOKEN_END)
 			{
-				if (be.size() > 1)
+				if (be.size() > 1 )
 				{
-					state = S;
-					be.pop();
-					break;
+					if (checkWhile()) // if we inside the while go to sf state
+					{
+						state = SF;
+						be.pop();
+						continue;
+					}
+					else 
+					{
+						state = S;
+						be.pop();
+						break;
+					}
 				}
 				else
 				{
 					state = SF;
-					be.pop();
 				}
 				break;
 			}
-		
 			if (token.get_type() == TOKEN_WRITE)
 			{
 				state = W1;
@@ -226,6 +242,7 @@ void Parser::PopulatePoliz()
 			if (token.get_type() == TOKEN_IF)
 			{
 				state = V1;
+				IF = true;
 				break;
 			}
 			if (token.get_type() == TOKEN_BEGIN)
@@ -237,6 +254,7 @@ void Parser::PopulatePoliz()
 			if (token.get_type() == TOKEN_ELSE)
 			{
 				state = SF;
+				CheckHeadHooks(19);
 				continue;   // if we got if then else else can be after end need to go to the SF head
 			}
 			if (token.get_type() == TOKEN_WHILE)
@@ -266,8 +284,6 @@ void Parser::PopulatePoliz()
 		case R3:
 			if (token.get_type() == TOKEN_RPAREN)
 			{
-				/*state = SF;
-				poliz.put_lex(Token(TOKEN_READ));*/
 				state = V2;
 				poliz.put_lex(Token(TOKEN_READ));
 				hooks.push(15);
@@ -330,6 +346,13 @@ void Parser::PopulatePoliz()
 				poliz.put_lex(Token(TOKEN_CHAR, c_val));
 				break;
 			}
+			if (token.get_type() == TOKEN_STRING)
+			{
+				state = B2;
+				poliz.put_lex(Token(TOKEN_STRING, str));
+				break;
+			}
+
 			if (token.get_type() == TOKEN_NOT)
 			{
 				state = B1;
@@ -429,12 +452,18 @@ void Parser::PopulatePoliz()
 				hooks.push(13);
 				break;
 			}
+			if (token.get_type() == TOKEN_NEQ)
+			{
+				state = B1;
+				hooks.push(18);
+				break;
+			}
 			if (CheckHeadHooks(3))
 			{
 				state = V2;
 				continue;
 			}
-			// 9 = '>=' 10 = '<=' 11 = '>' 12 = '<' 13 = '=' 14 = 'not'
+			// 9 = '>=' 10 = '<=' 11 = '>' 12 = '<' 13 = '=' 14 = 'not' 18 = '!='
 			if (CheckHeadHooks(9))
 			{
 				state = S2;
@@ -465,6 +494,12 @@ void Parser::PopulatePoliz()
 				poliz.put_lex(Token(TOKEN_EQ));
 				continue;
 			}
+			if (CheckHeadHooks(18))
+			{
+				state = S2;
+				poliz.put_lex(Token(TOKEN_NEQ));
+				continue;
+			}
 			else
 				throw "Exception S2";
 		case V2:
@@ -475,10 +510,11 @@ void Parser::PopulatePoliz()
 			}
 			if (token.get_type() == TOKEN_THEN)
 			{
-				state = S;
+			    state = S;
 				pl0 = poliz.get_free();
 				poliz.blank();
 				poliz.put_lex(Token(POLIZ_FGO));
+				hooks.push(19);
 				break;
 			}
 			if (token.get_type() == TOKEN_DO)
@@ -487,7 +523,6 @@ void Parser::PopulatePoliz()
 				pl3 = poliz.get_free();
 				poliz.blank();
 				poliz.put_lex(Token(POLIZ_FGO));
-				//wh.push(17); // push while
 				hooks.push(17);
 				break;
 			}
@@ -526,17 +561,10 @@ void Parser::PopulatePoliz()
 						be.pop();//CheckHeadHooks(1); // get out from the stack
 						state = S; break;
 					}
-					state = SF;
 				}
 				break;
-			}
-			if (checkElse()) // for this moment works only with if ex then ex; else ex verify the (;)
-			{
-				token.get_type();
-				state = S;
-				break;
-			}		
-			if (token.get_type() == TOKEN_END && checkWhile())
+			}	
+			if (token.get_type() == TOKEN_END && checkWhile()&& hooks.top() != 19)
 			{
 				CheckHeadHooks(17); // 
 				poliz.put_lex(Token(POLIZ_LABEL, pl2));
@@ -548,15 +576,8 @@ void Parser::PopulatePoliz()
 						be.pop();//CheckHeadHooks(1); // get out from the stack
 						state = S; break;
 					}
-					state = SF;
 				}
-			}	
-			if (checkWhile()) // checkwhile
-			{
-				token.get_type();
-				state = S;
-				break;
-			}
+			}				
 		    if (token.get_type() == TOKEN_SEMICOLON)
 			{
 				state = S;
@@ -580,7 +601,6 @@ void Parser::PopulatePoliz()
 						be.pop();
 						state = S; break;
 					}
-					state = SF;
 				}
 				break;
 			}
@@ -588,6 +608,18 @@ void Parser::PopulatePoliz()
 			{
 				state = S;
 				be.push(1);
+				break;
+			}
+			if (checkWhile()) // checkwhile
+			{
+				token.get_type();
+				state = S;
+				break;
+			}
+			if (checkElse()) 
+			{
+				token.get_type();
+				state = S;
 				break;
 			}
 			break;

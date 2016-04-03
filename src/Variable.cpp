@@ -1,4 +1,6 @@
 #include "../include/Variable.h"
+#include <string>
+
 
 char Variable::getCharValue() {
 	return chValue;
@@ -18,23 +20,35 @@ type_state Variable::getType() {
 void Variable::putType(type_state tstate) {
 	type = tstate;
 }
-Variable::Variable(int value) {
+Variable::Variable(int value):Variable() {
 	this->value = value;
-	this->chValue = 'a';
-	this->type = INT;
 }
-Variable&  Variable::operator=(Variable var) {
+
+
+Variable& Variable::operator=(Variable var)
+{
 	value = var.value;
-	chValue = var.chValue;
 	type = var.type;
+	str = var.str;
+	chValue = var.chValue;
 	return *this;
 }
-Variable::Variable(){
+
+Variable::~Variable() { }
+
+
+Variable::Variable():str() {
 	value = 0;
 	chValue = 'a';
 	type = INT;
 }
 
-Variable::~Variable(){
+std::string Variable::getStringValue()
+{
+	return str;
 }
 
+void Variable::putStringValue(std::string stri)
+{
+	str = stri;
+}

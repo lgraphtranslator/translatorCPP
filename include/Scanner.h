@@ -7,7 +7,7 @@
 
 class Scanner
 {
-	enum         state { H, IDENT, NUMB, COM, ALE, DELIM, NEQ, Z };
+	enum         state { H, IDENT, NUMB, COM, ALE, DELIM, NEQ, Z, STR };
 	static char       * TW[];
 	static type_of_token  words[];
 	static char       * TD[];

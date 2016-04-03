@@ -1,6 +1,8 @@
 1. :=
 2. +,-,/,*,(,)
-3. int,bool,char
+3. int,bool,char,string
 4. <,>,<=,>=, not
 5.write,read
-6.if then else
+6.begin end 
+7.if then else
+8.while do
