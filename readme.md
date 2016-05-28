@@ -26,7 +26,7 @@ How to use
 -----------------------
  To use the shared library you should add the header Interpretator.h to your file and show ld where to find shared library.
 For example 
-#include "../include/Interpretator.h"
+ 	#include "../include/Interpretator.h"
 	int main(int count,char ** args)
 	{
 		Interpretator inter("pathtofilewithCode.modelLang");
