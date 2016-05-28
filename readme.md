@@ -34,7 +34,7 @@ For example
 		return 0;
 	}
 buid it:
-* g++ -std=c++11 -L$pathtolibrary -Wl,-rpath=$pathtolibrary -o testProgram testProgram.cpp -ltranslator
+* g++ -L$pathtolibrary -Wl,-rpath=$pathtolibrary -o testProgram testProgram.cpp -ltranslator
 
 
 
