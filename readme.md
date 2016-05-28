@@ -33,8 +33,10 @@ For example
 		inter.interpretation();
 		return 0;
 	}
-buid it:
-* g++ -L$pathtolibrary -Wl,-rpath=$pathtolibrary -o testProgram testProgram.cpp -ltranslator
+buid it using rpath:
+* g++ -Lpathtolibrary -Wl,-rpath=$pathtolibrary -o testProgram testProgram.cpp -ltranslator
+
+
 
 
 
