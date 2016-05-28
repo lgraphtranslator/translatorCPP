@@ -14,7 +14,7 @@ Model language supports:
 * +,-,/,*
 * :=
 
-The code examples you can see at the test directory translatorCPP/test/testdata
+The code examples you can see at the test directory lgraphtranslator/translatorCPP/test/testdata
 
 
 How to build
