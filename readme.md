@@ -7,12 +7,12 @@ Language description
 --------------------
 
 Model language supports:
-while do
-if then else
-read
-write
-+,-,/,*
-:=
+* while do
+* if then else
+* read
+* write
+* +,-,/,*
+* :=
 
 
 
