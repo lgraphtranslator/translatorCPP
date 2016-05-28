@@ -24,17 +24,17 @@ To build the .so from the list of the files you should run make file.
 
 How to use
 -----------------------
-> To use the shared library you should add the header Interpretator.h to your file and show ld where to find shared library.
->For example 
->#include "../include/Interpretator.h"
->int main(int count,char ** args)
->{
->	Interpretator inter("pathtofilewithCode.modelLang");
->	inter.interpretation();
->	return 0;
->}
-> buid it 
->	g++ -std=c++11 -L$pathtolibrary -Wl,-rpath=$pathtolibrary -o testProgram testProgram.cpp -ltranslator
+ To use the shared library you should add the header Interpretator.h to your file and show ld where to find shared library.
+For example 
+#include "../include/Interpretator.h"
+	int main(int count,char ** args)
+	{
+		Interpretator inter("pathtofilewithCode.modelLang");
+		inter.interpretation();
+		return 0;
+	}
+buid it 
+g++ -std=c++11 -L$pathtolibrary -Wl,-rpath=$pathtolibrary -o testProgram testProgram.cpp -ltranslator
 
 
 
